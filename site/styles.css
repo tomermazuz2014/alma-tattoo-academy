@@ -585,3 +585,14 @@ table.terms td:first-child { font-weight: 600; width: 36%; }
 .btn:active, .btn-read:active, .pager a:active, .toc-link:active, .sub-list a:active, .course-rows a:active, .learn-item:active {
   transform: scale(0.95);
 }
+
+/* Larger portrait and wordmark always on top of the video. */
+.hero-wordmark { z-index: 3; }
+.hero-photo { z-index: 2; }
+@media (min-width: 900px) {
+  .hero-art { width: min(100%, 400px); }
+  .hero-wordmark { font-size: clamp(4rem, 10vw, 7.5rem); bottom: -8%; }
+}
+@media (max-width: 899px) {
+  .hero-art { width: min(92%, 420px); }
+}
