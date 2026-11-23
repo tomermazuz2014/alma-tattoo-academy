@@ -142,10 +142,12 @@
 
     return '' +
       '<section class="hero" aria-labelledby="hero-title">' +
+        /* General editorial loop generated with Kling: decorative, muted, no controls. */
+        '<video class="hero-video" src="/assets/video/hero-collage.mp4" poster="/assets/img/hero-collage-poster.jpg" muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1"></video>' +
         '<div class="hero-copy">' +
           '<p class="eyebrow">' + ltr(BRAND) + '</p>' +
-          '<h1 id="hero-title" aria-label="אמנות הקעקוע מתחילה ביסודות.">' +
-            'אמנות הקעקוע מתחילה ביסודות.'.split(' ').map(function (w, i) {
+          '<h1 id="hero-title" class="hero-title en" dir="ltr" aria-label="The art of tattooing starts with fundamentals.">' +
+            'The art of tattooing starts with fundamentals.'.split(' ').map(function (w, i) {
               return '<span class="split-word" aria-hidden="true"><span style="--i:' + i + '">' + esc(w) + '</span></span>';
             }).join(' ') +
           '</h1>' +
@@ -155,11 +157,7 @@
             '<a class="btn-link" href="/learn/chapter-01/what-is-a-tattoo" data-link>לקריאת פרק לדוגמה</a>' +
           '</div>' +
         '</div>' +
-        /* Editorial composition: oversized serif wordmark behind a portrait of Shaked (supplied by the client). */
-        '<div class="hero-art" aria-hidden="true">' +
-          '<span class="hero-wordmark en">ALMA</span>' +
-          '<video class="hero-photo" src="/assets/video/shaked-hero.mp4" poster="/assets/img/shaked-hero.jpg" muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1"></video>' +
-        '</div>' +
+        '<span class="hero-wordmark en" aria-hidden="true">ALMA</span>' +
       '</section>' +
 
       marqueeHtml() +

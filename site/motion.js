@@ -33,10 +33,6 @@
       yPercent: -30, ease: 'none',
       scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: 1 }
     });
-    gsap.to('.hero-photo', {
-      yPercent: -8, ease: 'none',
-      scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: 1 }
-    });
   }
 
   function splitHeadings(root, gsap, ScrollTrigger) {
@@ -93,7 +89,7 @@
   }
 
   window.almaMotion = function (root) {
-    var heroVideo = root.querySelector("video.hero-photo");
+    var heroVideo = root.querySelector("video.hero-video");
     if (heroVideo && !reduce.matches) { var pr = heroVideo.play(); if (pr && pr.catch) pr.catch(function () {}); }
     if (ctx) { ctx.revert(); ctx = null; }
     if (!window.gsap || !window.ScrollTrigger || reduce.matches) return;
