@@ -74,6 +74,24 @@
     });
   }
 
+  function addMarquee(root, gsap, ScrollTrigger) {
+    var track = root.querySelector('.marquee-track');
+    if (!track) return;
+    // Endless loop, transform only. It speeds up with scroll velocity and pauses off screen.
+    var loop = gsap.to(track, { xPercent: -50, duration: 28, ease: 'none', repeat: -1 });
+    ScrollTrigger.create({
+      trigger: track.parentNode, start: 'top bottom', end: 'bottom top',
+      onToggle: function (self) { self.isActive ? loop.play() : loop.pause(); }
+    });
+    ScrollTrigger.create({
+      start: 0, end: 'max',
+      onUpdate: function (self) {
+        var boost = Math.min(Math.abs(self.getVelocity()) / 700, 3);
+        gsap.to(loop, { timeScale: 1 + boost, duration: 0.5, overwrite: true });
+      }
+    });
+  }
+
   window.almaMotion = function (root) {
     var heroVideo = root.querySelector("video.hero-photo");
     if (heroVideo && !reduce.matches) { var pr = heroVideo.play(); if (pr && pr.catch) pr.catch(function () {}); }
@@ -88,6 +106,7 @@
       addHeroMotion(root, gsap, ScrollTrigger);
       splitHeadings(root, gsap, ScrollTrigger);
       addCardMotion(root, gsap, ScrollTrigger);
+      addMarquee(root, gsap, ScrollTrigger);
     }, root);
   };
 })();

@@ -162,6 +162,7 @@
         '</div>' +
       '</section>' +
 
+      marqueeHtml() +
       '<section class="section" aria-labelledby="learn-title" data-reveal>' +
         '<div class="wrap">' +
           '<h2 id="learn-title">מה לומדים</h2>' +
@@ -196,6 +197,13 @@
           '</div>' +
         '</div>' +
       '</section>';
+  }
+
+  // Ambient band: an endless line of brand words. motion.js drives it; without JS it stays still.
+  function marqueeHtml() {
+    var words = ['ALMA TATTOO ACADEMY', 'אמנות הקעקוע מתחילה ביסודות', 'עור סינתטי בלבד', 'יסודות · סקיצה · בטיחות', 'שיקול דעת לפני המכונה'];
+    var one = words.map(function (w) { return '<span class="marquee-item">' + ltr(w) + '</span><span class="marquee-dot" aria-hidden="true">✳</span>'; }).join('');
+    return '<div class="marquee" aria-hidden="true"><div class="marquee-track">' + one + one + '</div></div>';
   }
 
   function learnItem(num, title, text) {

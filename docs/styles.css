@@ -596,3 +596,18 @@ table.terms td:first-child { font-weight: 600; width: 36%; }
 @media (max-width: 899px) {
   .hero-art { width: min(92%, 420px); }
 }
+
+/* ---------- Ambient band between hero and content ----------
+   Transform-only loop, driven by motion.js. Stays still without JS or with reduced motion. */
+.marquee { overflow: hidden; border-block: 1px solid var(--line); padding-block: var(--s6); background: var(--warm-tint); }
+.marquee-track { display: inline-flex; align-items: center; white-space: nowrap; will-change: transform; }
+.marquee-item { font-family: "DM Serif Display", "Ploni", Georgia, serif; font-size: clamp(2rem, 4.5vw, 3.75rem); line-height: 1; color: var(--burgundy); padding-inline: var(--s4); }
+.marquee-item:nth-child(even) { color: var(--ink); }
+.marquee-dot { color: var(--terracotta); font-size: clamp(1rem, 2vw, 1.5rem); padding-inline: var(--s2); }
+
+/* Hero grows with the screen, so the portrait and wordmark read as the main event. */
+@media (min-width: 900px) {
+  .hero { min-height: min(100svh, 960px); }
+  .hero-art { width: min(46vw, 620px); }
+  .hero-wordmark { font-size: clamp(5rem, 13vw, 10.5rem); bottom: -7%; }
+}
