@@ -153,6 +153,7 @@
     if (heroVideo && !reduce.matches) { var pr = heroVideo.play(); if (pr && pr.catch) pr.catch(function () {}); }
     if (ctx) { ctx.revert(); ctx = null; }
     initGallery(root);
+    if (window.almaUpdatePastHero) window.almaUpdatePastHero();
     var shutterTimer = startShutter(root);
     if (!window.gsap || !window.ScrollTrigger || reduce.matches) return;
 
@@ -167,4 +168,14 @@
       addMarquee(root, gsap, ScrollTrigger);
     }, root);
   };
+  // The header logo appears only after the visitor scrolls past the home hero.
+  // Pages without a hero always show it.
+  function updatePastHero() {
+    var hasHero = !!document.querySelector('.hero');
+    var past = !hasHero || window.scrollY > window.innerHeight * 0.55;
+    document.body.classList.toggle('past-hero', past);
+  }
+  window.addEventListener('scroll', updatePastHero, { passive: true });
+  window.addEventListener('resize', updatePastHero);
+  window.almaUpdatePastHero = updatePastHero;
 })();

@@ -152,7 +152,6 @@
               return '<span class="split-word" aria-hidden="true"><span class="' + (/fundamentals/i.test(w) ? 'hl' : '') + '" style="--i:' + i + '">' + esc(w) + '</span></span>';
             }).join(' ') +
           '</h1>' +
-          '<p class="lede">קורס דיגיטלי למתחילים שרוצים להבין את עולם הקעקועים, ללמוד את השפה המקצועית ולפתח שיקול דעת כבר מהסקיצה הראשונה.</p>' +
           '<div class="actions">' +
             '<a class="btn btn-primary" href="/course" data-link>לצפייה בקורס</a>' +
             '<a class="btn-link" href="/learn/chapter-01/what-is-a-tattoo" data-link>לקריאת פרק לדוגמה</a>' +

@@ -1044,3 +1044,57 @@ body, .site-header { background: var(--ivory); }
 .cam-video { display: block; width: 100%; height: auto; }
 .gallery-stage { height: 460px; align-items: center; }
 .cam-eject .print { top: 58%; }
+
+/* Hero reduced to the headline, the call to action, and the wordmark. Larger display type reads as a magazine cover. */
+.hero h1.hero-title { font-size: clamp(2.8rem, 6.2vw, 6.4rem); line-height: 0.92; letter-spacing: -0.025em; max-width: 12ch; }
+.hero-copy { gap: var(--s8); }
+.hero .actions { margin-top: var(--s2); }
+@media (min-width: 900px) { .hero h1.hero-title { font-size: clamp(2.8rem, 6vw, 6.4rem); } }
+.hero h1.hero-title { max-width: none; font-size: clamp(2.4rem, 5vw, 5.2rem); }
+.hero-copy { max-width: 720px; }
+
+/* Hero headline: Bodoni Moda (a high-contrast editorial serif, like the magazine references) in burgundy, not black. */
+.hero h1.hero-title {
+  font-family: "Bodoni Moda", "Ploni", Georgia, serif; font-weight: 500; font-style: normal;
+  text-transform: none; letter-spacing: -0.01em; line-height: 1.0;
+  color: var(--burgundy);
+  font-size: clamp(2.6rem, 5.6vw, 5.6rem);
+}
+.hero h1.hero-title .hl { color: var(--rust); font-style: italic; }
+@media (min-width: 900px) { .hero h1.hero-title { font-size: clamp(2.6rem, 5.6vw, 5.6rem); } }
+
+/* ---------- ALMA brand tokens (from the Studio Alma app: constants/alma.ts) ----------
+   Ink #1E1519 (a warm near-black, not pure black), pink #C2306A for emphasis and the primary button,
+   butter #FFE27A as a highlight, and the app's hard offset shadow (no blur) on buttons. */
+:root { --alma-ink: #1E1519; --alma-pink: #FF5C9D; --alma-pink-deep: #C2306A; --alma-butter: #FFE27A; }
+.hero h1.hero-title { color: var(--alma-ink); font-family: "Bodoni Moda", "Ploni", Georgia, serif; }
+.hero h1.hero-title .hl { color: var(--alma-pink-deep); }
+.btn-primary {
+  background: var(--alma-pink-deep); color: #FFFFFF; border: 2px solid var(--alma-ink);
+  border-radius: 28px; box-shadow: 4px 4px 0 var(--alma-ink);
+}
+.btn-primary:hover { background: #A62559; box-shadow: 3px 3px 0 var(--alma-ink); transform: translate(1px, 1px); }
+.btn-primary:active { transform: translate(4px, 4px); box-shadow: 0 0 0 var(--alma-ink); }
+.site-nav .nav-link { border-color: var(--alma-ink); color: var(--alma-ink); border-width: 2px; box-shadow: 3px 3px 0 var(--alma-ink); }
+.site-nav .nav-link:hover { background: var(--alma-butter); color: var(--alma-ink); }
+.hero .btn-link { color: var(--alma-ink); }
+
+/* ---------- Hero: video only, big ALMA on the left, logo appears after scrolling ----------
+   The copy stays in the page for screen readers but is visually removed. The header is fixed so the
+   logo can appear once the visitor scrolls past the hero. */
+.hero-copy { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.hero-wordmark { left: 0; right: auto; inset-inline: auto; bottom: -0.12em; text-align: left; padding-inline-start: var(--gutter); font-size: clamp(7rem, 26vw, 24rem); letter-spacing: -0.03em; }
+.site-header { position: fixed; }
+.site-header .brand { transition: opacity 420ms var(--ease-out), transform 420ms var(--ease-out); }
+body:not(.past-hero) .site-header .brand { opacity: 0; transform: translateY(-8px); pointer-events: none; }
+@media (max-width: 899px) { .hero-wordmark { font-size: clamp(5.5rem, 38vw, 12rem); } }
+
+/* Only the call to action stays visible, moved to the bottom-right in pink. The headline and description
+   remain for screen readers. The ALMA wordmark takes the pink of the button. */
+.hero-copy { position: absolute !important; left: auto; right: var(--gutter); top: auto; bottom: 16vh; width: auto; height: auto; clip: auto; overflow: visible; white-space: normal; max-width: none; z-index: 4; align-items: flex-end; gap: 0; }
+.hero-title, .hero .lede { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.hero .actions { margin-top: 0; justify-content: flex-end; }
+.hero .btn-primary { background: #C2306A; color: #FFFFFF; min-height: 56px; padding: 0 var(--s8); font-size: 1.1rem; }
+.hero-wordmark { color: #C2306A; }
+.hero .btn-link { display: none; }
+.hero-copy { bottom: 30vh; }
