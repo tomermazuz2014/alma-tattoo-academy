@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice">
+  <!-- TEMPORARY ART: abstract placeholder, not an ALMA work. Replace with an ALMA photo. -->
+  <defs>
+    <radialGradient id="glow" cx="45%" cy="40%" r="60%">
+      <stop offset="0" stop-color="#712C37" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#141310" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="1000" fill="#1d1b17"/>
+  <rect width="800" height="1000" fill="url(#glow)"/>
+  <g fill="none" stroke="#F2EEE6" stroke-linecap="round" stroke-width="1.6">
+    <path opacity="0.9" d="M90 120 C 260 60, 420 220, 360 380 S 120 620, 300 820 S 620 900, 720 700"/>
+    <path opacity="0.7" d="M140 80 C 330 150, 300 330, 470 420 S 690 600, 620 800"/>
+    <path opacity="0.6" d="M40 300 C 200 340, 260 500, 180 640 S 60 860, 230 980"/>
+    <path opacity="0.5" d="M520 40 C 480 200, 600 300, 560 460 S 470 700, 600 930"/>
+    <path opacity="0.45" stroke-width="1" d="M250 200 C 330 260, 380 300, 430 380"/>
+    <path opacity="0.35" stroke-width="1" d="M300 540 C 380 580, 440 640, 470 720"/>
+    <path opacity="0.3" stroke-width="1" d="M90 500 C 140 520, 190 560, 210 620"/>
+  </g>
+  <g fill="none" stroke="#F2EEE6" stroke-width="0.8" opacity="0.25">
+    <circle cx="410" cy="470" r="46"/><circle cx="410" cy="470" r="52"/><circle cx="410" cy="470" r="58"/>
+  </g>
+</svg>
