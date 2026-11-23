@@ -95,7 +95,6 @@
     var flash = root.querySelector('.shutter-flash');
     if (!shots.length) return null;
     shots[0].classList.add('is-on');
-    if (reduce.matches) return null;
     var i = 0, timer = null;
     function next() {
       if (!document.body.contains(shots[0])) { clearInterval(timer); return; }
@@ -103,15 +102,57 @@
       i = (i + 1) % shots.length;
       shots[i].classList.add('is-on');
       if (flash) { flash.classList.remove('is-flash'); void flash.offsetWidth; flash.classList.add('is-flash'); }
+      if (printImg) { printImg.src = shots[i].getAttribute("src"); printWrap.classList.remove("is-out"); void printWrap.offsetWidth; printWrap.classList.add("is-out"); }
+      if (body) { body.classList.remove("is-shot"); void body.offsetWidth; body.classList.add("is-shot"); }
     }
-    timer = setInterval(next, 2600);
+    var cam = root.querySelector(".hero-cam"); var printWrap = root.querySelector(".cam-print"); var printImg = printWrap && printWrap.querySelector("img"); var body = root.querySelector(".cam-body");
+    if (cam) cam.addEventListener("click", function () { next(); });
     return { stop: function () { clearInterval(timer); } };
+  }
+
+  // Gallery camera: every press flashes, shakes the body, closes the iris, and ejects a print.
+  // Each print is kept in a row below, so the gallery fills up as the visitor shoots.
+  function restart(el, cls) {
+    if (!el) return;
+    el.classList.remove(cls);
+    void el.offsetWidth;
+    el.classList.add(cls);
+  }
+  function initGallery(root) {
+    var btn = root.querySelector('.gallery .cam-video-btn');
+    var vid = root.querySelector('.gallery .cam-video');
+    if (!btn) return;
+    var rig = root.querySelector('.gallery .cam-rig');
+    var body = root.querySelector('.gallery .cam-body');
+    var burst = root.querySelector('.gallery .flash-burst');
+    var eject = root.querySelector('.gallery .cam-eject');
+    var prints = root.querySelector('.gallery .prints');
+    var shots = ['/assets/img/shots/s1.jpg', '/assets/img/shots/s2.jpg', '/assets/img/shots/s3.jpg', '/assets/img/shots/s4.jpg', '/assets/img/shots/s5.jpg'];
+    var n = 0;
+    btn.addEventListener('click', function () {
+      var src = shots[n % shots.length];
+      if (vid) { try { vid.currentTime = 0; var pr = vid.play(); if (pr && pr.catch) pr.catch(function () {}); } catch (e) {} }
+      n++;
+      restart(rig, 'is-shake');
+      restart(body, 'is-shot');
+      restart(burst, 'is-burst');
+      eject.innerHTML = '<div class="print is-ejecting"><img src="' + src + '" alt=""></div>';
+      setTimeout(function () {
+        var p = document.createElement('div');
+        p.className = 'print is-kept';
+        p.innerHTML = '<img src="' + src + '" alt="">';
+        prints.insertBefore(p, prints.firstChild);
+        while (prints.children.length > 8) prints.removeChild(prints.lastChild);
+        eject.innerHTML = '';
+      }, 2200);
+    });
   }
 
   window.almaMotion = function (root) {
     var heroVideo = root.querySelector("video.hero-video");
     if (heroVideo && !reduce.matches) { var pr = heroVideo.play(); if (pr && pr.catch) pr.catch(function () {}); }
     if (ctx) { ctx.revert(); ctx = null; }
+    initGallery(root);
     var shutterTimer = startShutter(root);
     if (!window.gsap || !window.ScrollTrigger || reduce.matches) return;
 

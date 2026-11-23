@@ -144,15 +144,7 @@
       '<section class="hero" aria-labelledby="hero-title">' +
         '<figure class="hero-frame">' +
           /* Kling loop: decorative, muted, no controls. */
-          /* Camera-style shutter sequence over five supplied photos. Each cut flashes like a shutter. */
-          '<div class="hero-shots" aria-hidden="true">' +
-            '<img class="shot" src="/assets/img/shots/s1.jpg" alt="" width="1200" height="800">' +
-            '<img class="shot" src="/assets/img/shots/s2.jpg" alt="" width="1200" height="800">' +
-            '<img class="shot" src="/assets/img/shots/s3.jpg" alt="" width="1200" height="800">' +
-            '<img class="shot" src="/assets/img/shots/s4.jpg" alt="" width="1200" height="800">' +
-            '<img class="shot" src="/assets/img/shots/s5.jpg" alt="" width="1200" height="800">' +
-            '<span class="shutter-flash"></span>' +
-          '</div>' +
+        '<video class="hero-video" src="/assets/video/hero-shaked.mp4" poster="/assets/img/hero-shaked-poster.jpg" muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1"></video>' +
         '</figure>' +
         '<div class="hero-copy">' +
           '<h1 id="hero-title" class="hero-title" dir="ltr" aria-label="The art of tattooing starts with fundamentals.">' +
@@ -189,6 +181,17 @@
           '<h2 id="track-title">מסלול הלימוד</h2>' +
           '<p class="section-lead">שמונה פרקים, שנקראים לפי הסדר. פרק 01 זמין כבר עכשיו.</p>' +
           '<ol class="track">' + track + '</ol>' +
+        '</div>' +
+      '</section>' +
+
+      '<section class="section gallery" aria-labelledby="gallery-title">' +
+        '<div class="wrap">' +
+          '<h2 id="gallery-title">מהסטודיו</h2>' +
+          '<div class="gallery-stage">' +
+            '<button type="button" class="cam-video-btn" aria-label="צילום"><video class="cam-video" src="/assets/video/camera-shot.mp4" poster="/assets/img/camera-shot-poster.jpg" muted playsinline preload="metadata"></video></button>' +
+          '</div>' +
+          '<p class="gallery-hint">לחצי על הכפתור כדי לצלם</p>' +
+          '<div class="prints" aria-live="polite"></div>' +
         '</div>' +
       '</section>' +
 

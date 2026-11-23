@@ -896,3 +896,151 @@ body, .site-header { background: var(--ivory); }
   .hero-shots .shot { transition: none; transform: none; }
   .shutter-flash { display: none; }
 }
+
+/* ---------- Hero: instant camera mock-up (click to take a photo) ----------
+   The body is drawn in CSS: layered gradients, a glossy lens, an iris that closes on each shot,
+   a shutter button with press feedback, and a print that slides out of the slot. */
+.hero-cam { position: absolute; inset: 0; z-index: 4; pointer-events: none; }
+.hero-cam .cam-body { pointer-events: auto; cursor: pointer; }
+.cam-body {
+  position: absolute; left: 50%; top: 9%; transform: translateX(-50%);
+  width: 74%; aspect-ratio: 1.18; border-radius: 18px; border: 1px solid #000;
+  background: linear-gradient(172deg, #3b372f 0%, #1d1b17 42%, #0f0e0c 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -12px 26px rgba(0,0,0,0.55), 0 28px 40px -18px rgba(0,0,0,0.65), 0 2px 0 #000;
+  transition: transform 160ms var(--ease-out);
+}
+.cam-body:active { transform: translateX(-50%) scale(0.985); }
+.cam-top { position: absolute; left: 6%; right: 6%; top: 6%; height: 14%; display: flex; align-items: center; justify-content: space-between; }
+.cam-brand { font-family: var(--display); font-size: clamp(9px, 1.1vw, 12px); letter-spacing: 0.22em; color: #F4ECDB; }
+.cam-flash-led { width: 10px; height: 10px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #ffd6c8, #B5482A 60%); box-shadow: inset 0 -1px 0 rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.6); }
+.cam-lens {
+  position: absolute; left: 50%; top: 27%; transform: translateX(-50%); width: 52%; aspect-ratio: 1; border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, #050505 0 20%, #1d2430 24%, #2a3442 40%, #0b0d12 58%, #262626 70%, #3b3b3b 78%, #111 88%);
+  box-shadow: inset 0 0 0 6px #2a2824, inset 0 0 0 9px #0a0a0a, 0 0 0 3px #0b0b0b, 0 6px 14px rgba(0,0,0,0.6);
+}
+.cam-lens::after {
+  content: ""; position: absolute; left: 20%; top: 16%; width: 26%; height: 26%; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.9), rgba(255,255,255,0) 70%);
+}
+.cam-iris {
+  position: absolute; inset: 18%; border-radius: 50%; opacity: 0.9;
+  background: conic-gradient(#151a22 0 12%, #2a3442 12% 25%, #101418 25% 37%, #2a3442 37% 50%, #101418 50% 62%, #2a3442 62% 75%, #101418 75% 87%, #2a3442 87%);
+}
+.cam-body.is-shot .cam-iris { animation: iris-close 520ms var(--ease-out); }
+@keyframes iris-close { 0% { transform: scale(1); } 40% { transform: scale(0.5); } 100% { transform: scale(1); } }
+.cam-shutter {
+  position: absolute; right: 9%; bottom: 13%; width: 17%; aspect-ratio: 1; border-radius: 50%; border: 0; padding: 0; cursor: pointer;
+  background: radial-gradient(circle at 35% 30%, #e07752, #B5482A 55%, #8E3720 100%);
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.35), 0 6px 14px rgba(0,0,0,0.5), 0 0 0 4px #161412;
+  transition: transform 120ms var(--ease-out);
+}
+.cam-shutter:active { transform: scale(0.95); }
+.cam-shutter:focus-visible { outline: 2px solid var(--mustard); outline-offset: 4px; }
+.cam-slot { position: absolute; left: 14%; right: 14%; bottom: 5%; height: 5%; border-radius: 3px; background: #050505; box-shadow: inset 0 2px 3px rgba(0,0,0,0.8), 0 1px 0 rgba(255,255,255,0.08); }
+.cam-print {
+  position: absolute; z-index: 3; left: 50%; top: 30%; width: 56%;
+  padding: 3% 3% 12%; background: #FBF8F2;
+  box-shadow: 0 18px 30px -14px rgba(0,0,0,0.55);
+  transform: translate(-50%, -20%) rotate(-2deg);
+  clip-path: inset(0 0 100% 0);
+  transition: transform 900ms var(--ease-out), clip-path 900ms var(--ease-out);
+}
+.cam-print img { display: block; width: 100%; height: auto; object-fit: cover; }
+.cam-print.is-out { transform: translate(-50%, 62%) rotate(-2deg); clip-path: inset(0 0 0 0); }
+@media (prefers-reduced-motion: reduce) {
+  .cam-body, .cam-shutter, .cam-print { transition: none; }
+  .cam-body.is-shot .cam-iris { animation: none; }
+}
+
+/* ---------- Gallery: a shooting camera ----------
+   Press to take a photo: the body shakes, the flash bursts, the iris closes, and a print slides out. */
+.gallery { background: var(--powder); }
+.gallery h2 { font-family: var(--display); font-weight: 400; text-transform: uppercase; font-size: clamp(2rem, 4.5vw, 3.4rem); letter-spacing: -0.01em; color: var(--ink); }
+.gallery-stage { position: relative; height: 560px; display: flex; align-items: flex-start; justify-content: center; overflow: hidden; margin-top: var(--s6); }
+.cam-rig { position: relative; z-index: 2; width: min(360px, 86vw); margin-top: var(--s4); }
+.gallery .cam-body { position: relative; left: auto; top: auto; transform: none; width: 100%; aspect-ratio: 1.2; overflow: hidden; }
+.gallery .cam-body:active { transform: scale(0.985); }
+.gallery .cam-body::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0.55; border-radius: inherit;
+  background: repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0 1px, rgba(0,0,0,0.12) 1px 3px);
+}
+.cam-vf { position: absolute; right: 9%; top: 18%; width: 22px; height: 15px; border: 1px solid rgba(244, 236, 219, 0.55); border-radius: 2px; background: rgba(0,0,0,0.5); }
+.cam-rig.is-shake { animation: cam-shake 300ms linear; }
+@keyframes cam-shake {
+  0% { transform: translate(0, 0); } 15% { transform: translate(-3px, 1px); } 30% { transform: translate(3px, -2px); }
+  50% { transform: translate(-2px, 1px); } 70% { transform: translate(2px, 0); } 100% { transform: translate(0, 0); }
+}
+.gallery .cam-iris { opacity: 1; }
+.gallery .cam-shutter { width: 18%; }
+.flash-burst {
+  position: absolute; inset: 0; z-index: 5; pointer-events: none; opacity: 0;
+  background: radial-gradient(circle at 50% 40%, #ffffff 0%, #fff8ea 16%, rgba(255, 248, 234, 0.55) 42%, rgba(255, 248, 234, 0) 70%);
+}
+.flash-burst.is-burst { animation: flash-burst 460ms var(--ease-out); }
+@keyframes flash-burst { 0% { opacity: 0; transform: scale(0.7); } 10% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(1.12); } }
+.cam-eject { position: absolute; z-index: 1; left: 0; right: 0; top: 0; bottom: 0; pointer-events: none; }
+.cam-eject .print { position: absolute; left: 50%; top: 40%; width: 200px; padding: 9px 9px 34px; background: #FBF8F2; box-shadow: 0 18px 28px -14px rgba(0,0,0,0.5); transform: translate(-50%, 0) rotate(-2deg); }
+.cam-eject .print img { display: block; width: 100%; height: auto; }
+.cam-eject .print.is-ejecting { animation: eject-print 1100ms var(--ease-out) both; }
+@keyframes eject-print {
+  0% { clip-path: inset(0 0 100% 0); transform: translate(-50%, 0) rotate(-2deg); }
+  45% { clip-path: inset(0 0 0 0); }
+  100% { clip-path: inset(0 0 0 0); transform: translate(-50%, 150px) rotate(-2deg); }
+}
+.gallery-hint { text-align: center; color: var(--muted-on-paper); margin-top: var(--s2); font-size: 0.95rem; }
+.prints { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s4); margin-top: var(--s8); min-height: 40px; }
+.prints .print.is-kept { width: 150px; padding: 8px 8px 26px; background: #FBF8F2; box-shadow: 0 14px 24px -14px rgba(0,0,0,0.45); animation: kept-in 480ms var(--ease-out) both; }
+.prints .print.is-kept:nth-child(odd) { transform: rotate(-2.5deg); }
+.prints .print.is-kept:nth-child(even) { transform: rotate(2deg); }
+.prints .print.is-kept img { display: block; width: 100%; height: auto; }
+@keyframes kept-in { from { opacity: 0; transform: translateY(18px) rotate(-6deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .cam-rig.is-shake, .flash-burst.is-burst, .cam-eject .print.is-ejecting, .prints .print.is-kept { animation: none; }
+  .cam-eject .print.is-ejecting { clip-path: none; transform: translate(-50%, 150px) rotate(-2deg); }
+}
+
+/* ---------- Hero: full-bleed Shaked video with the copy on top ----------
+   The video fills the whole hero. A light powder veil sits on the reading side so the text stays readable.
+   The ALMA wordmark stays above the video along the bottom edge. */
+.hero { min-height: min(100svh, 900px); display: grid; grid-template-columns: minmax(0, 1fr); align-items: center; padding: var(--s12) var(--gutter) 8vw; }
+.hero-frame {
+  position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; max-width: none; margin: 0;
+  aspect-ratio: auto; animation: none; background: var(--ink); overflow: hidden;
+}
+.hero-frame::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(to left, rgba(217, 232, 241, 0.94) 0%, rgba(217, 232, 241, 0.7) 40%, rgba(217, 232, 241, 0.12) 100%);
+}
+.hero-frame .hero-video { width: 100%; height: 100%; object-fit: cover; }
+.hero-copy { position: relative; z-index: 2; grid-column: 1; grid-row: 1; max-width: 620px; justify-self: start; }
+.hero-badge { display: none; }
+.hero-wordmark { z-index: 3; }
+@media (min-width: 900px) {
+  .hero { grid-template-columns: minmax(0, 1fr); padding-inline: var(--gutter); }
+  .hero-copy { margin-inline-start: auto; margin-inline-end: 6vw; }
+  .hero h1.hero-title { font-size: clamp(2.6rem, 5vw, 5.2rem); }
+}
+@media (max-width: 899px) {
+  .hero-frame::after { background: linear-gradient(to bottom, rgba(217, 232, 241, 0.2) 0%, rgba(217, 232, 241, 0.85) 55%, rgba(217, 232, 241, 0.95) 100%); }
+  .hero-copy { margin-top: 38vh; }
+}
+.hero-frame { grid-column: 1 / -1; grid-row: 1 / -1; }
+.hero-copy { grid-row: 1; }
+
+/* ---------- Hero: video shown as-is, header floats over it ----------
+   No veil on the video and no panel behind the copy. The header is transparent and sits over the top of the video. */
+.site-header { position: absolute; top: 0; inset-inline: 0; z-index: 20; background: transparent; border-bottom: 0; }
+.hero { min-height: 100svh; padding-top: 128px; }
+.hero-frame::after { display: none; }
+.hero .lede { color: var(--ink); }
+.hero-copy { background: none; }
+.hero-frame { top: -128px; bottom: -8vw; left: calc(-1 * var(--gutter)); right: calc(-1 * var(--gutter)); width: auto; height: auto; }
+@media (min-width: 900px) { .hero-frame { left: calc(-1 * var(--gutter)); right: calc(-1 * var(--gutter)); } }
+.hero-frame { justify-self: stretch; align-self: stretch; }
+
+/* Gallery: the Kling camera clip is the camera. Press the stage to play a shot. */
+.cam-video-btn { display: block; position: relative; z-index: 2; width: min(640px, 92vw); padding: 0; border: 0; background: none; cursor: pointer; border-radius: 12px; overflow: hidden; box-shadow: 0 30px 50px -28px rgba(0,0,0,0.55); }
+.cam-video-btn:focus-visible { outline: 2px solid var(--burgundy); outline-offset: 4px; }
+.cam-video { display: block; width: 100%; height: auto; }
+.gallery-stage { height: 460px; align-items: center; }
+.cam-eject .print { top: 58%; }
