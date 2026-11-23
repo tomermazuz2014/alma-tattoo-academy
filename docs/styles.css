@@ -539,7 +539,7 @@ table.terms td:first-child { font-weight: 600; width: 36%; }
   object-position: 50% 30%; background: var(--warm-tint);
   animation: mask-in 1100ms var(--ease-out) both;
 }
-.hero-wordmark { animation: rise 900ms var(--ease-out) 200ms both; }
+/* wordmark entrance now runs from motion.js (GSAP); CSS keeps only its position */
 
 @media (max-width: 899px) {
   .hero { grid-template-columns: 1fr; gap: var(--s8); min-height: 0; padding-top: var(--s8); padding-bottom: var(--s16); }
@@ -562,4 +562,26 @@ table.terms td:first-child { font-weight: 600; width: 36%; }
 @media (min-width: 900px) {
   .hero-art { width: min(100%, 320px); }
   .hero-wordmark { font-size: clamp(3.5rem, 9vw, 7rem); bottom: -9%; }
+}
+
+/* ---------- Motion layer (motion.js) ----------
+   Word masks for headings, a drifting halo behind the hero, centre-band card activation,
+   and press feedback that works on touch. All of it is transform/opacity/clip-path. */
+.w { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: 0.12em; margin-bottom: -0.12em; }
+.wi { display: inline-block; will-change: transform; }
+.hero-glow {
+  position: absolute; z-index: 0; pointer-events: none;
+  width: 70vmin; height: 70vmin; max-width: 560px; max-height: 560px;
+  inset-inline-end: -12vmin; top: 6%; border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(180, 83, 47, 0.3), rgba(180, 83, 47, 0));
+  will-change: transform;
+}
+.learn-item.is-active {
+  transform: translate3d(0, -6px, 0) scale(1.01);
+  box-shadow: 0 24px 48px -20px rgba(113, 44, 55, 0.4);
+  border-color: rgba(113, 44, 55, 0.22);
+}
+/* Press feedback for every tappable element: scale down on touch, spring back on release. */
+.btn:active, .btn-read:active, .pager a:active, .toc-link:active, .sub-list a:active, .course-rows a:active, .learn-item:active {
+  transform: scale(0.95);
 }

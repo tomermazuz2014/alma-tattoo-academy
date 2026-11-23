@@ -158,7 +158,7 @@
         /* Editorial composition: oversized serif wordmark behind a portrait of Shaked (supplied by the client). */
         '<div class="hero-art" aria-hidden="true">' +
           '<span class="hero-wordmark en">ALMA</span>' +
-          '<img class="hero-photo" src="/assets/img/shaked-hero.jpg" alt="" width="799" height="1200">' +
+          '<video class="hero-photo" src="/assets/video/shaked-hero.mp4" poster="/assets/img/shaked-hero.jpg" muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1"></video>' +
         '</div>' +
       '</section>' +
 
@@ -453,6 +453,7 @@
       els.forEach(function (el) { revealIO.observe(el); });
     }
     onScroll();
+    if (window.almaMotion) window.almaMotion(main);
   }
 
   var ticking = false;
