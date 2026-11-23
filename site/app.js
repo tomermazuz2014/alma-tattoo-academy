@@ -155,12 +155,8 @@
             '<a class="btn-link" href="/learn/chapter-01/what-is-a-tattoo" data-link>לקריאת פרק לדוגמה</a>' +
           '</div>' +
         '</div>' +
-        '<figure class="hero-media">' +
-          '<div class="hero-frame">' +
-            /* TEMPORARY ART: replace with an ALMA photo of fine-line work on a forearm. */
-            '<img src="/assets/img/hero-linework.svg" alt="" width="800" height="1000" data-placeholder="temporary">' +
-          '</div>' +
-        '</figure>' +
+        /* Full-bleed Kling clip drawn behind the copy. Decorative: aria-hidden, muted, no controls. */
+        '<video class="hero-video" src="/assets/video/hero-linework.mp4" poster="/assets/img/hero-poster.jpg" autoplay muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1"></video>' +
       '</section>' +
 
       '<section class="section" aria-labelledby="learn-title" data-reveal>' +
@@ -428,10 +424,11 @@
   function bindPage() {
     // Prefix root-relative links and images with BASE (no-op locally, where BASE is empty).
     if (BASE) {
-      main.querySelectorAll('a[href^="/"], img[src^="/"]').forEach(function (el) {
-        var attr = el.hasAttribute('href') ? 'href' : 'src';
-        var v = el.getAttribute(attr);
-        if (v.indexOf(BASE) !== 0) el.setAttribute(attr, BASE + v);
+      main.querySelectorAll('a[href^="/"], img[src^="/"], video[src^="/"], video[poster^="/"]').forEach(function (el) {
+        ['href', 'src', 'poster'].forEach(function (attr) {
+          var v = el.getAttribute(attr);
+          if (v && v.charAt(0) === '/' && v.indexOf(BASE) !== 0) el.setAttribute(attr, BASE + v);
+        });
       });
     }
     var els = main.querySelectorAll('[data-reveal]');
