@@ -816,3 +816,4 @@ body, .site-header { background: var(--ivory); }
 /* Hero ground: powder blue instead of the ivory. Ink headline and rust wordmark read clearly on it. */
 .hero { background: var(--powder); }
 .hero .lede { color: #3A4650; }
+.site-header { background: var(--powder); border-bottom-color: rgba(44, 79, 166, 0.18); }
