@@ -812,3 +812,7 @@ body, .site-header { background: var(--ivory); }
 @media (max-width: 899px) {
   .hero h1.hero-title { font-size: clamp(1.9rem, 9vw, 3rem); }
 }
+
+/* Hero ground: powder blue instead of the ivory. Ink headline and rust wordmark read clearly on it. */
+.hero { background: var(--powder); }
+.hero .lede { color: #3A4650; }
