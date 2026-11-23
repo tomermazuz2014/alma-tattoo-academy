@@ -155,8 +155,11 @@
             '<a class="btn-link" href="/learn/chapter-01/what-is-a-tattoo" data-link>לקריאת פרק לדוגמה</a>' +
           '</div>' +
         '</div>' +
-        /* Full-bleed Kling clip drawn behind the copy. Decorative: aria-hidden, muted, no controls. */
-        '<video class="hero-video" src="/assets/video/hero-linework.mp4" poster="/assets/img/hero-poster.jpg" autoplay muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1"></video>' +
+        /* Editorial composition: oversized serif wordmark behind a portrait of Shaked (supplied by the client). */
+        '<div class="hero-art" aria-hidden="true">' +
+          '<span class="hero-wordmark en">ALMA</span>' +
+          '<img class="hero-photo" src="/assets/img/shaked-hero.jpg" alt="" width="799" height="1200">' +
+        '</div>' +
       '</section>' +
 
       '<section class="section" aria-labelledby="learn-title" data-reveal>' +
