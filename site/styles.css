@@ -1130,3 +1130,6 @@ body:not(.past-hero) .site-nav { opacity: 0; pointer-events: none; }
 @media (max-width: 899px) {
   .hero-wordmark { font-size: 42vw; top: 36%; }
 }
+
+/* ALMA in light blue (תכלת). */
+.hero-wordmark { color: #8ED1F2; }

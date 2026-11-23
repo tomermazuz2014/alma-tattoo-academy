@@ -31,7 +31,7 @@
     // Scroll-linked: the wordmark travels up faster than the photo, which gives depth as you scroll.
     gsap.fromTo('.hero-wordmark', { yPercent: 0 }, {
       yPercent: 45, ease: 'none', immediateRender: false,
-      scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: 1 }
+      scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: 2.5 }
     });
   }
 
@@ -74,7 +74,7 @@
     var track = root.querySelector('.marquee-track');
     if (!track) return;
     // Endless loop, transform only. It speeds up with scroll velocity and pauses off screen.
-    var loop = gsap.to(track, { xPercent: -50, duration: 28, ease: 'none', repeat: -1 });
+    var loop = gsap.to(track, { xPercent: -50, duration: 46, ease: 'none', repeat: -1 });
     ScrollTrigger.create({
       trigger: track.parentNode, start: 'top bottom', end: 'bottom top',
       onToggle: function (self) { self.isActive ? loop.play() : loop.pause(); }
