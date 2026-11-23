@@ -884,3 +884,15 @@ body, .site-header { background: var(--ivory); }
 @media (min-width: 900px) {
   .hero-badge { inset-inline-start: auto; left: 4%; top: 62%; transform: translate(-50%, -50%); }
 }
+
+/* ---------- Hero: camera-shutter photo sequence ---------- */
+.hero-shots { position: absolute; inset: 0; }
+.hero-shots .shot { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.06); transition: opacity 120ms linear, transform 1200ms var(--ease-out); }
+.hero-shots .shot.is-on { opacity: 1; transform: scale(1); }
+.shutter-flash { position: absolute; inset: 0; background: #FBF7EC; opacity: 0; pointer-events: none; }
+.shutter-flash.is-flash { animation: shutter 260ms var(--ease-out); }
+@keyframes shutter { 0% { opacity: 0.85; } 100% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .hero-shots .shot { transition: none; transform: none; }
+  .shutter-flash { display: none; }
+}

@@ -144,7 +144,15 @@
       '<section class="hero" aria-labelledby="hero-title">' +
         '<figure class="hero-frame">' +
           /* Kling loop: decorative, muted, no controls. */
-          '<video class="hero-video" src="/assets/video/hero-rose.mp4" poster="/assets/img/hero-rose-poster.jpg" muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1"></video>' +
+          /* Camera-style shutter sequence over five supplied photos. Each cut flashes like a shutter. */
+          '<div class="hero-shots" aria-hidden="true">' +
+            '<img class="shot" src="/assets/img/shots/s1.jpg" alt="" width="1200" height="800">' +
+            '<img class="shot" src="/assets/img/shots/s2.jpg" alt="" width="1200" height="800">' +
+            '<img class="shot" src="/assets/img/shots/s3.jpg" alt="" width="1200" height="800">' +
+            '<img class="shot" src="/assets/img/shots/s4.jpg" alt="" width="1200" height="800">' +
+            '<img class="shot" src="/assets/img/shots/s5.jpg" alt="" width="1200" height="800">' +
+            '<span class="shutter-flash"></span>' +
+          '</div>' +
         '</figure>' +
         '<div class="hero-copy">' +
           '<h1 id="hero-title" class="hero-title" dir="ltr" aria-label="The art of tattooing starts with fundamentals.">' +

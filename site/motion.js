@@ -88,10 +88,31 @@
     });
   }
 
+  // Camera-style sequence for the hero photos: a shutter flash, then the next photo.
+  // Runs only while the hero is on screen. Under reduced motion the first photo stays still.
+  function startShutter(root) {
+    var shots = root.querySelectorAll('.hero-shots .shot');
+    var flash = root.querySelector('.shutter-flash');
+    if (!shots.length) return null;
+    shots[0].classList.add('is-on');
+    if (reduce.matches) return null;
+    var i = 0, timer = null;
+    function next() {
+      if (!document.body.contains(shots[0])) { clearInterval(timer); return; }
+      shots[i].classList.remove('is-on');
+      i = (i + 1) % shots.length;
+      shots[i].classList.add('is-on');
+      if (flash) { flash.classList.remove('is-flash'); void flash.offsetWidth; flash.classList.add('is-flash'); }
+    }
+    timer = setInterval(next, 2600);
+    return { stop: function () { clearInterval(timer); } };
+  }
+
   window.almaMotion = function (root) {
     var heroVideo = root.querySelector("video.hero-video");
     if (heroVideo && !reduce.matches) { var pr = heroVideo.play(); if (pr && pr.catch) pr.catch(function () {}); }
     if (ctx) { ctx.revert(); ctx = null; }
+    var shutterTimer = startShutter(root);
     if (!window.gsap || !window.ScrollTrigger || reduce.matches) return;
 
     var gsap = window.gsap;
