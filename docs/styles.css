@@ -719,7 +719,7 @@ body, .site-header { background: var(--ivory); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero { background: var(--ivory) url("assets/img/hero-collage-poster.jpg") center / cover no-repeat; }
+  .hero { background: var(--ivory) url("assets/img/hero-rose-poster.jpg") center / cover no-repeat; }
   .hero-video { display: none; }
 }
 
@@ -775,7 +775,7 @@ body, .site-header { background: var(--ivory); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-frame { background: var(--ink) url("assets/img/hero-collage-poster.jpg") center / cover no-repeat; }
+  .hero-frame { background: var(--ink) url("assets/img/hero-rose-poster.jpg") center / cover no-repeat; }
   .hero-video { display: none; }
 }
 
@@ -817,3 +817,70 @@ body, .site-header { background: var(--ivory); }
 .hero { background: var(--powder); }
 .hero .lede { color: #3A4650; }
 .site-header { background: var(--powder); border-bottom-color: rgba(44, 79, 166, 0.18); }
+
+/* ---------- Header (redesigned) ----------
+   A bold ALMA lockup in rust with a tracked "Tattoo Academy" line under it, on the powder ground.
+   The nav is an outlined pill that fills with ink on hover. Touch targets are 44px or more. */
+.site-header {
+  background: var(--powder); border-bottom: 0;
+  min-height: 84px; padding: var(--s4) var(--gutter);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.brand {
+  direction: ltr; unicode-bidi: isolate;
+  display: inline-flex; flex-direction: column; align-items: flex-start; gap: 6px;
+  text-decoration: none; color: var(--ink); line-height: 1;
+  padding-block: var(--s1);
+}
+.brand-mark {
+  font-family: var(--display); font-size: 2.2rem; letter-spacing: -0.03em; color: var(--rust);
+  transition: letter-spacing 320ms var(--ease-out);
+}
+.brand-sub {
+  font-family: "Archivo", sans-serif; font-weight: 600; font-size: 0.66rem;
+  letter-spacing: 0.34em; text-transform: uppercase; color: var(--ink);
+}
+.brand:hover .brand-mark { letter-spacing: 0.02em; }
+.site-nav { display: flex; align-items: center; }
+.site-nav .nav-link {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 44px; padding: 0 var(--s6);
+  border: 1.5px solid var(--ink); border-radius: 999px;
+  font-weight: 600; font-size: 1rem; color: var(--ink); text-decoration: none;
+  background: transparent;
+  transition: background-color 220ms var(--ease-out), color 220ms var(--ease-out), transform 160ms var(--ease-out);
+}
+.site-nav .nav-link:active { transform: scale(0.95); }
+.site-nav .nav-link:focus-visible { outline: 2px solid var(--burgundy); outline-offset: 3px; }
+@media (hover: hover) and (pointer: fine) {
+  .site-nav .nav-link:hover { background: var(--ink); color: var(--ivory); }
+}
+@media (max-width: 899px) {
+  .site-header { min-height: 72px; }
+  .brand-mark { font-size: 1.7rem; }
+  .brand-sub { font-size: 0.56rem; letter-spacing: 0.28em; }
+  .site-nav .nav-link { padding: 0 var(--s4); }
+}
+
+/* ---------- Hero: kinetic headline, rotating badge, bolder copy ---------- */
+.hero-title .hl { color: var(--rust); }
+.hero-title .split-word { vertical-align: top; }
+.hero .lede { font-size: 1.3rem; font-weight: 500; color: var(--ink); max-width: 30ch; line-height: 1.6; }
+.hero .btn-primary { min-height: 56px; padding: 0 var(--s8); font-size: 1.05rem; border-radius: 999px; }
+.hero .btn-link { font-weight: 600; }
+
+/* Circular badge over the frame's lower-left corner. A slow, transform-only spin. */
+.hero-badge {
+  position: absolute; z-index: 4; width: clamp(104px, 9vw, 136px); aspect-ratio: 1;
+  inset-inline-start: 0; top: 52%; transform: translate(-30%, 0);
+  pointer-events: none;
+}
+.hero-badge svg { width: 100%; height: 100%; animation: badge-spin 18s linear infinite; overflow: visible; }
+.hero-badge text { font-family: "Archivo", sans-serif; font-weight: 700; font-size: 13.5px; letter-spacing: 0.16em; fill: var(--ink); }
+@keyframes badge-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .hero-badge svg { animation: none; }
+}
+@media (min-width: 900px) {
+  .hero-badge { inset-inline-start: auto; left: 4%; top: 62%; transform: translate(-50%, -50%); }
+}

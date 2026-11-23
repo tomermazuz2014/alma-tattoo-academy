@@ -144,12 +144,12 @@
       '<section class="hero" aria-labelledby="hero-title">' +
         '<figure class="hero-frame">' +
           /* Kling loop: decorative, muted, no controls. */
-          '<video class="hero-video" src="/assets/video/hero-collage.mp4" poster="/assets/img/hero-collage-poster.jpg" muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1"></video>' +
+          '<video class="hero-video" src="/assets/video/hero-rose.mp4" poster="/assets/img/hero-rose-poster.jpg" muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1"></video>' +
         '</figure>' +
         '<div class="hero-copy">' +
           '<h1 id="hero-title" class="hero-title" dir="ltr" aria-label="The art of tattooing starts with fundamentals.">' +
             'The art of tattooing starts with fundamentals.'.split(' ').map(function (w, i) {
-              return '<span class="split-word" aria-hidden="true"><span style="--i:' + i + '">' + esc(w) + '</span></span>';
+              return '<span class="split-word" aria-hidden="true"><span class="' + (/fundamentals/i.test(w) ? 'hl' : '') + '" style="--i:' + i + '">' + esc(w) + '</span></span>';
             }).join(' ') +
           '</h1>' +
           '<p class="lede">קורס דיגיטלי למתחילים שרוצים להבין את עולם הקעקועים, ללמוד את השפה המקצועית ולפתח שיקול דעת כבר מהסקיצה הראשונה.</p>' +
@@ -159,6 +159,7 @@
           '</div>' +
         '</div>' +
         '<span class="hero-wordmark" aria-hidden="true">ALMA</span>' +
+'<div class="hero-badge" aria-hidden="true"><svg viewBox="0 0 200 200" focusable="false"><circle cx="173.26" cy="100" r="9" fill="#D8BF4A"/><circle cx="164.38" cy="136.26" r="5" fill="#D8BF4A"/><circle cx="137.74" cy="163.64" r="5" fill="#D8BF4A"/><circle cx="100.74" cy="174.00" r="9" fill="#D8BF4A"/><circle cx="64.48" cy="163.64" r="5" fill="#D8BF4A"/><circle cx="37.10" cy="137.00" r="5" fill="#D8BF4A"/><circle cx="26.00" cy="100" r="9" fill="#D8BF4A"/><circle cx="35.62" cy="63.74" r="5" fill="#D8BF4A"/><circle cx="62.26" cy="36.36" r="5" fill="#D8BF4A"/><circle cx="99.26" cy="26.00" r="9" fill="#D8BF4A"/><circle cx="135.52" cy="36.36" r="5" fill="#D8BF4A"/><circle cx="162.90" cy="63.00" r="5" fill="#D8BF4A"/><circle cx="100" cy="100" r="30" fill="#B5482A"/><path d="M88 100 h24 M100 88 v24" stroke="#F4ECDB" stroke-width="4" stroke-linecap="round"/></svg></div>' +
       '</section>' +
 
       marqueeHtml() +
