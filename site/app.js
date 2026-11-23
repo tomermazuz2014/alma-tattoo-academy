@@ -7,6 +7,8 @@
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   var mobile = window.matchMedia('(max-width: 899px)');
   var BRAND = 'ALMA Tattoo Academy';
+  // URL prefix for hosting under a subpath. build-pages.js sets this for the GitHub Pages build; empty locally.
+  var BASE = '';
 
   document.documentElement.classList.add('js');
 
@@ -331,7 +333,9 @@
   }
 
   function route() {
-    var path = location.pathname.replace(/\/+$/, '') || '/';
+    var path = location.pathname;
+    if (BASE && path.indexOf(BASE) === 0) path = path.slice(BASE.length);
+    path = path.replace(/\/+$/, '') || '/';
     if (path === '/') return render(homePage());
     if (path === '/course') return render(coursePage(), C.title);
 
@@ -421,6 +425,14 @@
 
   var revealIO = null;
   function bindPage() {
+    // Prefix root-relative links and images with BASE (no-op locally, where BASE is empty).
+    if (BASE) {
+      main.querySelectorAll('a[href^="/"], img[src^="/"]').forEach(function (el) {
+        var attr = el.hasAttribute('href') ? 'href' : 'src';
+        var v = el.getAttribute(attr);
+        if (v.indexOf(BASE) !== 0) el.setAttribute(attr, BASE + v);
+      });
+    }
     var els = main.querySelectorAll('[data-reveal]');
     if (reduceMotion.matches || !('IntersectionObserver' in window)) {
       els.forEach(function (el) { el.classList.add('is-in'); });
