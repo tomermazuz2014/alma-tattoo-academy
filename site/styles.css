@@ -611,3 +611,71 @@ table.terms td:first-child { font-weight: 600; width: 36%; }
   .hero-art { width: min(46vw, 620px); }
   .hero-wordmark { font-size: clamp(5rem, 13vw, 10.5rem); bottom: -7%; }
 }
+
+/* =====================================================================
+   Palette v2, taken from the client's references:
+   - ivory and cream grounds (Montaire, Future Archive, Symbol)
+   - rust and terracotta blocks (Hajinsky, Foures, Symbol)
+   - powder blue, mustard and blush for the card "folders" (Oreol, Retro waves)
+   - cobalt for one contrast accent (Future Archive)
+   Burgundy stays as the brand colour for buttons and headings, per the brief.
+   ===================================================================== */
+:root {
+  --ivory: #F4ECDB;
+  --rust: #B5482A;
+  --rust-deep: #8E3720;
+  --cobalt: #2C4FA6;
+  --powder: #D9E8F1;
+  --mustard: #D8BF4A;
+  --blush: #EDCBD0;
+  --paper: var(--ivory);
+  --paper-2: #EBDFC7;
+  --warm-tint: #EBDFC7;
+  --terracotta: var(--rust);
+  --card: #FBF5E8;
+}
+
+body, .site-header { background: var(--ivory); }
+.site-header { border-bottom-color: #D8C9AE; }
+.site-footer { background: var(--ink); color: #E6DCC7; border-top: 0; }
+.site-footer bdi { color: #F4ECDB; }
+
+/* Learn cards become coloured folders, one tone each. */
+.learn-item { border: 0; background: var(--card); }
+.learn-item:nth-child(1) { background: var(--powder); }
+.learn-item:nth-child(2) { background: var(--blush); }
+.learn-item:nth-child(3) { background: var(--mustard); }
+.learn-item:nth-child(4) { background: var(--ivory); border: 1px solid #D8C9AE; }
+.learn-item .learn-num { color: var(--rust-deep); }
+
+/* Track section: rust block with ivory text, like the Hajinsky and Symbol references. */
+.section-tint { background: var(--rust); color: var(--ivory); }
+.section-tint h2, .section-tint .track-title, .section-tint .track-num, .section-tint .track-en,
+.section-tint .sec-num, .section-tint .sec-soon, .section-tint .status,
+.section-tint .track-item .row-summary, .section-tint .section-lead { color: var(--ivory); }
+.section-tint .section-lead, .section-tint .track-item .row-summary { opacity: 0.92; }
+.section-tint .track::before { background: rgba(244, 236, 219, 0.35); }
+.section-tint .track::after { background: var(--mustard); }
+.section-tint .sec-num { color: var(--mustard); }
+.section-tint .sub-list a:hover .sec-title { color: var(--mustard); }
+.section-tint .status { border-color: rgba(244, 236, 219, 0.7); }
+
+/* Preview: ivory block with a cobalt heading rule, sharper editorial feel. */
+.section-warm { background: var(--ivory); }
+.section-warm .preview h3 { color: var(--ink); }
+.section-warm .preview h3::after { background: var(--cobalt); }
+.section-warm .chapter-line, .section-warm .en { color: var(--cobalt); }
+
+/* Marquee: rust strip with ivory words and mustard stars. */
+.marquee { background: var(--rust); border-color: var(--rust-deep); }
+.marquee-item { color: var(--ivory); }
+.marquee-item:nth-child(even) { color: var(--mustard); }
+.marquee-dot { color: var(--ivory); }
+
+/* Buttons pick up the palette: rust primary, burgundy stays for the reading link state. */
+.btn-primary { background: var(--rust); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 12px 26px -14px rgba(142, 55, 32, 0.7); }
+.btn-primary:hover { background: var(--rust-deep); }
+.btn-read[aria-pressed="true"] { border-color: var(--rust); color: var(--rust); }
+
+/* Softer halo on the ivory ground, so it reads as light rather than a stain. */
+.hero-glow { width: 52vmin; height: 52vmin; max-width: 420px; max-height: 420px; background: radial-gradient(closest-side, rgba(181, 72, 42, 0.16), rgba(181, 72, 42, 0)); }
