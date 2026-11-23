@@ -501,3 +501,16 @@ table.terms td:first-child { font-weight: 600; width: 36%; }
   .hero { background: var(--paper) url("assets/img/hero-poster.jpg") center / cover no-repeat; }
   .hero-video { display: none; }
 }
+
+/* ---------- Revision: Latin in an editorial serif, Hebrew stays in Ploni ----------
+   Every Latin run is wrapped in <bdi class="en">. DM Serif Display has no Hebrew glyphs,
+   so Hebrew text falls through to Ploni. Terracotta is a warm secondary accent, used sparingly. */
+:root { --terracotta: #B4532F; --warm-tint: #EBDDCB; }
+.en, .brand { font-family: "DM Serif Display", "Ploni", Georgia, serif; font-weight: 400; letter-spacing: 0.04em; }
+.brand { font-size: 1rem; }
+.section-warm { background: var(--warm-tint); }
+.section-warm .eyebrow, .section-warm .chapter-line, .section-warm .en { color: var(--burgundy); }
+.section-warm .preview h3 { font-family: "DM Serif Display", "Ploni", Georgia, serif; font-weight: 400; font-size: clamp(2rem, 4vw, 2.75rem); line-height: 1.15; }
+.section-warm .preview h3::after { background: var(--terracotta); }
+.hero .en, .hero .eyebrow { color: var(--burgundy); }
+.track-en { font-size: 1rem; color: var(--muted-on-paper); }

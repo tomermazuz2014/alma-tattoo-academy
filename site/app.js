@@ -27,7 +27,7 @@
     var out = '', last = 0, m;
     LTR_RE.lastIndex = 0;
     while ((m = LTR_RE.exec(s))) {
-      out += esc(s.slice(last, m.index)) + '<bdi dir="ltr">' + esc(m[0]) + '</bdi>';
+      out += esc(s.slice(last, m.index)) + '<bdi dir="ltr" class="en">' + esc(m[0]) + '</bdi>';
       last = m.index + m[0].length;
     }
     return out + esc(s.slice(last));
@@ -98,7 +98,7 @@
   function renderBlocks(blocks) { return blocks.map(renderBlock).join(''); }
 
   function sectionLabel(it) {
-    return it.id ? '<bdi dir="ltr">' + esc(it.id) + '</bdi>' : '';
+    return it.id ? '<bdi dir="ltr" class="en">' + esc(it.id) + '</bdi>' : '';
   }
 
   /* ---------- course rows (used by course page, TOC and home) ---------- */
@@ -180,11 +180,11 @@
         '</div>' +
       '</section>' +
 
-      '<section class="section" aria-labelledby="preview-title" data-reveal>' +
+      '<section class="section section-warm" aria-labelledby="preview-title" data-reveal>' +
         '<div class="wrap preview" data-reveal>' +
           '<div>' +
             '<h2 id="preview-title">הצצה לפרק 01</h2>' +
-            '<p class="chapter-line"><bdi dir="ltr">CHAPTER 01 — ' + esc(ch.titleEn) + '</bdi></p>' +
+            '<p class="chapter-line"><bdi dir="ltr" class="en">CHAPTER 01 — ' + esc(ch.titleEn) + '</bdi></p>' +
             '<h3>' + ltr(ch.titleHe) + '</h3>' +
           '</div>' +
           '<div>' +
