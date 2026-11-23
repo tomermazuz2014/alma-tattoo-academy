@@ -722,3 +722,93 @@ body, .site-header { background: var(--ivory); }
   .hero { background: var(--ivory) url("assets/img/hero-collage-poster.jpg") center / cover no-repeat; }
   .hero-video { display: none; }
 }
+
+/* =====================================================================
+   Direction: bold editorial magazine (chosen by the user).
+   Display voice: Archivo Black, a heavy grotesk close to the reference wordmarks.
+   Hebrew stays in Ploni. Hard edges: no rounded cards, no decorative shadows.
+   ===================================================================== */
+:root { --display: "Archivo Black", "Ploni", "Arial Black", sans-serif; }
+
+.en { font-family: "Archivo", "Ploni", sans-serif; font-weight: 600; letter-spacing: 0.06em; }
+.brand { font-family: var(--display); font-weight: 400; letter-spacing: 0.04em; font-size: 0.95rem; }
+.section-tint .track-title, .marquee-item { font-family: var(--display); font-weight: 400; }
+
+/* Hero: copy on the reading side, a tall video frame opposite, wordmark across the bottom. */
+.hero {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr); gap: var(--s12);
+  align-items: center; text-align: start;
+  min-height: min(100svh, 920px); max-width: none; margin: 0;
+  padding: var(--s12) var(--gutter) 15vw;
+  background: var(--ivory); position: relative; isolation: isolate; overflow: hidden;
+}
+.hero::before, .hero-art { display: none; }
+.hero-copy { grid-column: 1; grid-row: 1; position: relative; z-index: 2; display: flex; flex-direction: column; align-items: flex-start; gap: var(--s6); }
+.hero-frame { grid-column: 2; grid-row: 1; position: relative; z-index: 2; margin: 0; justify-self: start; width: min(100%, 440px); aspect-ratio: 4 / 5; overflow: hidden; background: var(--ink); animation: mask-in 1100ms var(--ease-out) both; }
+.hero-video { display: block; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+.hero-title {
+  font-family: var(--display); font-weight: 400; text-transform: uppercase;
+  font-size: clamp(2.4rem, 5.2vw, 5.2rem); line-height: 0.96; letter-spacing: -0.02em; color: var(--ink);
+}
+.hero .lede { color: var(--muted-on-paper); max-width: 40ch; }
+.hero .actions { justify-content: flex-start; }
+.hero-wordmark {
+  position: absolute; z-index: 3; inset-inline: 0; bottom: -0.16em;
+  font-family: var(--display); font-size: 24vw; line-height: 0.78; letter-spacing: -0.03em;
+  text-align: center; color: var(--rust); white-space: nowrap; pointer-events: none;
+}
+
+/* Learn: flush colour blocks, no radius, no shadows. */
+.learn-grid { gap: 0; }
+.learn-item { border-radius: 0; box-shadow: none; padding: var(--s8) var(--s6); border: 0; min-height: 260px; }
+.learn-item + .learn-item { border: 0; padding-inline: var(--s6); }
+.learn-item h3 { font-family: var(--display); font-weight: 400; font-size: 1.35rem; line-height: 1.15; }
+.learn-item p { color: var(--muted-on-paper); }
+.learn-item:hover { box-shadow: none; transform: none; }
+
+@media (max-width: 899px) {
+  .hero { grid-template-columns: 1fr; gap: var(--s8); padding: var(--s8) var(--gutter) 30vw; min-height: 0; }
+  .hero-copy { grid-column: 1; grid-row: auto; }
+  .hero-frame { grid-column: 1; grid-row: auto; width: min(100%, 420px); }
+  .hero-title { font-size: clamp(2.25rem, 11vw, 3.4rem); }
+  .hero-wordmark { font-size: 34vw; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-frame { background: var(--ink) url("assets/img/hero-collage-poster.jpg") center / cover no-repeat; }
+  .hero-video { display: none; }
+}
+
+/* Fit the composition in one laptop screen: headline stays clear of the frame, wordmark lands on the frame's lower edge. */
+@media (min-width: 900px) {
+  .hero { grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.8fr); min-height: calc(100svh - 96px); padding-bottom: 9vw; }
+  .hero-title { font-size: clamp(2rem, 3.6vw, 3.6rem); }
+  .hero-frame { width: min(100%, 380px); }
+  .hero-wordmark { font-size: 20vw; bottom: -0.1em; }
+}
+
+/* The copy column owns its width; the English headline wraps inside it and never runs into the frame. */
+.hero-copy { align-items: stretch; min-width: 0; }
+.hero-copy > * { max-width: 100%; }
+.hero-title { width: 100%; overflow-wrap: break-word; text-align: left; }
+.hero .split-word { max-width: 100%; }
+@media (min-width: 900px) {
+  .hero-title { font-size: clamp(1.8rem, 3.1vw, 3.3rem); }
+  .hero-wordmark { bottom: -0.38em; z-index: 1; }
+  .hero-frame, .hero-copy { z-index: 2; }
+}
+@media (min-width: 900px) {
+  .hero { grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr); }
+  .hero-title { font-size: clamp(1.8rem, 2.9vw, 3.1rem); }
+  .hero-wordmark { bottom: -0.2em; font-size: 19vw; }
+  .hero-frame { width: min(100%, 340px); }
+}
+
+/* Final headline size for the magazine hero (higher specificity than the earlier hero rules). */
+.hero h1.hero-title { font-size: clamp(2.2rem, 4.4vw, 4.2rem); }
+@media (min-width: 900px) {
+  .hero h1.hero-title { font-size: clamp(2.2rem, 3.7vw, 3.9rem); }
+}
+@media (max-width: 899px) {
+  .hero h1.hero-title { font-size: clamp(1.9rem, 9vw, 3rem); }
+}

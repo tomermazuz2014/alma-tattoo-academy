@@ -142,11 +142,12 @@
 
     return '' +
       '<section class="hero" aria-labelledby="hero-title">' +
-        /* General editorial loop generated with Kling: decorative, muted, no controls. */
-        '<video class="hero-video" src="/assets/video/hero-collage.mp4" poster="/assets/img/hero-collage-poster.jpg" muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1"></video>' +
+        '<figure class="hero-frame">' +
+          /* Kling loop: decorative, muted, no controls. */
+          '<video class="hero-video" src="/assets/video/hero-collage.mp4" poster="/assets/img/hero-collage-poster.jpg" muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1"></video>' +
+        '</figure>' +
         '<div class="hero-copy">' +
-          '<p class="eyebrow">' + ltr(BRAND) + '</p>' +
-          '<h1 id="hero-title" class="hero-title en" dir="ltr" aria-label="The art of tattooing starts with fundamentals.">' +
+          '<h1 id="hero-title" class="hero-title" dir="ltr" aria-label="The art of tattooing starts with fundamentals.">' +
             'The art of tattooing starts with fundamentals.'.split(' ').map(function (w, i) {
               return '<span class="split-word" aria-hidden="true"><span style="--i:' + i + '">' + esc(w) + '</span></span>';
             }).join(' ') +
@@ -157,7 +158,7 @@
             '<a class="btn-link" href="/learn/chapter-01/what-is-a-tattoo" data-link>לקריאת פרק לדוגמה</a>' +
           '</div>' +
         '</div>' +
-        '<span class="hero-wordmark en" aria-hidden="true">ALMA</span>' +
+        '<span class="hero-wordmark" aria-hidden="true">ALMA</span>' +
       '</section>' +
 
       marqueeHtml() +
@@ -206,7 +207,7 @@
 
   function learnItem(num, title, text) {
     var delay = (parseInt(num, 10) - 1) * 90;
-    return '<article class="learn-item" data-reveal style="--d:' + delay + 'ms"><span class="learn-num">' + ltr(num) + '</span>' +
+    return '<article class="learn-item" data-reveal style="--d:' + delay + 'ms">' +
       '<h3>' + ltr(title) + '</h3><p>' + ltr(text) + '</p></article>';
   }
 
