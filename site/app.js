@@ -176,7 +176,7 @@
         '</div>' +
       '</section>' +
 
-      '<section class="section section-dark" aria-labelledby="track-title" data-reveal>' +
+      '<section class="section section-tint" aria-labelledby="track-title" data-reveal>' +
         '<div class="wrap">' +
           '<h2 id="track-title">מסלול הלימוד</h2>' +
           '<p class="section-lead">שמונה פרקים, שנקראים לפי הסדר. פרק 01 זמין כבר עכשיו.</p>' +
@@ -185,7 +185,7 @@
       '</section>' +
 
       '<section class="section" aria-labelledby="preview-title" data-reveal>' +
-        '<div class="wrap preview">' +
+        '<div class="wrap preview" data-reveal>' +
           '<div>' +
             '<h2 id="preview-title">הצצה לפרק 01</h2>' +
             '<p class="chapter-line"><bdi dir="ltr">CHAPTER 01 — ' + esc(ch.titleEn) + '</bdi></p>' +
@@ -200,7 +200,8 @@
   }
 
   function learnItem(num, title, text) {
-    return '<article class="learn-item"><span class="learn-num">' + ltr(num) + '</span>' +
+    var delay = (parseInt(num, 10) - 1) * 90;
+    return '<article class="learn-item" data-reveal style="--d:' + delay + 'ms"><span class="learn-num">' + ltr(num) + '</span>' +
       '<h3>' + ltr(title) + '</h3><p>' + ltr(text) + '</p></article>';
   }
 
@@ -440,7 +441,13 @@
       if (revealIO) revealIO.disconnect();
       revealIO = new IntersectionObserver(function (entries) {
         entries.forEach(function (en) {
-          if (en.isIntersecting) { en.target.classList.add('is-in'); revealIO.unobserve(en.target); }
+          if (en.isIntersecting) {
+            var el = en.target;
+            el.classList.add('is-in');
+            revealIO.unobserve(el);
+            // Drop the stagger delay once the reveal has played, so hover responds immediately.
+            setTimeout(function () { el.style.transitionDelay = '0ms'; }, 1000);
+          }
         });
       }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
       els.forEach(function (el) { revealIO.observe(el); });

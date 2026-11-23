@@ -366,3 +366,105 @@ table.terms td:first-child { font-weight: 600; width: 36%; }
   .track::after { transform: scaleY(1); }
   .split-word > span { animation: none; }
 }
+
+/* =====================================================================
+   Revision: light palette (60/30/10), soft tinted surfaces, visible motion.
+   Motion follows the skill's rules: transform/opacity/clip-path only,
+   custom ease-out for UI, stronger ease-in-out for on-screen movement,
+   and all motion disabled under prefers-reduced-motion.
+   ===================================================================== */
+:root {
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --card: #FBF8F2;
+  --shadow-soft: 0 1px 2px rgba(113, 44, 55, 0.06), 0 14px 34px -18px rgba(113, 44, 55, 0.3);
+}
+
+/* Header and footer: light, with a hairline separator instead of a dark bar. */
+.site-header { background: var(--paper); color: var(--text-on-paper); border-bottom: 1px solid var(--line); }
+.site-nav a { color: var(--muted-on-paper); transition: color var(--t-fast) var(--ease-out); }
+.site-nav a:hover { color: var(--burgundy); }
+.site-footer { background: var(--paper-2); color: var(--muted-on-paper); border-top: 1px solid var(--line); }
+
+/* Former dark band becomes a soft tinted section. */
+.section-tint { background: var(--paper-2); }
+.section-tint .track::before { background: var(--line); }
+.section-tint .track::after { background: var(--burgundy); }
+.section-tint .track-num, .section-tint .track-en { color: var(--muted-on-paper); }
+.section-tint .sec-num { color: var(--burgundy); }
+.section-tint .sec-soon, .section-tint .status { color: var(--muted-on-paper); }
+.section-tint .track-item .row-summary { color: var(--muted-on-paper); }
+.section-tint .sub-list a:hover .sec-title { color: var(--burgundy); }
+
+/* Buttons: tinted shadow on primary, press feedback, hover gated to pointer devices. */
+.btn-primary {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 10px 22px -12px rgba(113, 44, 55, 0.65);
+  transition: background-color 200ms var(--ease-out), transform 160ms var(--ease-out), box-shadow 200ms var(--ease-out);
+}
+.btn { transition-property: background-color, color, border-color, transform, box-shadow; }
+.btn:active { transform: scale(0.97); }
+@media (hover: hover) and (pointer: fine) {
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 14px 26px -12px rgba(113, 44, 55, 0.7); }
+  .btn-ghost:hover, .btn-read[aria-pressed="false"]:hover { background: rgba(113, 44, 55, 0.08); }
+}
+.btn-link { transition: color 200ms var(--ease-out), text-decoration-color 200ms var(--ease-out); }
+
+/* Hero: a soft burgundy glow sits behind the image; copy rises in stages. */
+.hero-frame::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(60% 50% at 30% 20%, rgba(224, 148, 159, 0.22), transparent 70%);
+  mix-blend-mode: screen;
+}
+@media (min-width: 900px) {
+  .hero-copy > * { animation: rise 900ms var(--ease-out) both; }
+  .hero-copy > .eyebrow { animation-delay: 60ms; }
+  .hero-copy > .lede { animation-delay: 620ms; }
+  .hero-copy > .actions { animation-delay: 760ms; }
+}
+
+/* Learn cards: soft surfaces with tinted shadow, staggered on scroll. */
+.learn-grid { border-top: 0; gap: var(--s4); }
+.learn-item {
+  background: var(--card); border: 1px solid rgba(113, 44, 55, 0.08); border-radius: 16px;
+  padding: var(--s6); box-shadow: var(--shadow-soft);
+}
+.learn-item + .learn-item { border-inline-start: 1px solid rgba(113, 44, 55, 0.08); padding-inline-start: var(--s6); }
+.learn-item:nth-child(n) { padding-inline: var(--s6); }
+.learn-item { transition: opacity 500ms var(--ease-out), transform 500ms var(--ease-out), box-shadow 240ms var(--ease-out), border-color 240ms var(--ease-out); }
+.learn-item .learn-num { transition: transform 300ms var(--ease-out); transform-origin: right center; }
+@media (hover: hover) and (pointer: fine) {
+  .learn-item:hover { box-shadow: 0 1px 2px rgba(113, 44, 55, 0.08), 0 22px 44px -20px rgba(113, 44, 55, 0.38); border-color: rgba(113, 44, 55, 0.2); }
+  .learn-item:hover .learn-num { transform: scale(1.08); }
+}
+
+/* Reveal: slower, with per-item delay from inline --d. */
+.js [data-reveal] { transition-duration: 600ms; transition-timing-function: var(--ease-out); }
+.js [data-reveal].is-in { transition-delay: var(--d, 0ms); }
+
+/* Track: each chapter eases in when the section enters, and the line draws on scroll. */
+.track-item { transition: opacity 500ms var(--ease-out), transform 500ms var(--ease-out); }
+
+/* Preview heading: underline draws in with clip-path once it reaches the viewport. */
+.preview h3 { position: relative; display: inline-block; }
+.js .preview h3::after {
+  content: ""; position: absolute; inset-inline: 0; bottom: -10px; height: 2px; background: var(--burgundy);
+  clip-path: inset(0 100% 0 0); transition: clip-path 700ms var(--ease-in-out) 200ms;
+}
+.js .preview.is-in h3::after { clip-path: inset(0 0 0 0); }
+
+/* Reader: the body stays still while reading; only the drawer and read feedback move. */
+.toc { transition: transform 320ms var(--ease-out), visibility 320ms; }
+.btn-read { transition: transform 160ms var(--ease-out), background-color 200ms var(--ease-out), color 200ms var(--ease-out); }
+
+/* Reduced motion: keep color changes, drop every movement or reveal. */
+@media (prefers-reduced-motion: reduce) {
+  .hero-copy > *, .learn-item, .track-item, .js [data-reveal], .js .preview h3::after { animation: none !important; transition: none !important; transform: none !important; }
+  .js .preview h3::after { clip-path: none; }
+  .btn:active { transform: none; }
+}
+
+/* Unpublished rows inside the home track: lay out as a wrapped line, not a grid. */
+.sub-list .sec-soon-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 12px; padding-block: var(--s2); min-height: 44px; color: var(--muted-on-paper); }
+.sub-list .sec-soon-row .row-title { font-size: 1rem; }
+.sub-list .sec-soon-row .row-summary { flex-basis: 100%; margin: 0; }
+.sub-list .sec-soon-row .status { margin-inline-start: 0; }
