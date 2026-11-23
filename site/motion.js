@@ -29,8 +29,8 @@
     gsap.from('.hero-wordmark', { yPercent: 70, duration: 1.3, ease: 'expo.out', delay: 0.2 });
 
     // Scroll-linked: the wordmark travels up faster than the photo, which gives depth as you scroll.
-    gsap.to('.hero-wordmark', {
-      yPercent: -30, ease: 'none',
+    gsap.fromTo('.hero-wordmark', { yPercent: 0 }, {
+      yPercent: 45, ease: 'none', immediateRender: false,
       scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: 1 }
     });
   }
@@ -148,9 +148,41 @@
     });
   }
 
+  // Keeps the hero video running: autoplays muted, resumes after pauses, stalls and errors,
+  // restarts when the tab becomes visible again, and runs a light watchdog while it is on screen.
+  function keepVideoPlaying(video) {
+    if (!video || video.dataset.kept) return;
+    video.dataset.kept = '1';
+    video.muted = true;
+    video.defaultMuted = true;
+    video.loop = true;
+    video.setAttribute('playsinline', '');
+    function play() {
+      if (reduce.matches) return;
+      var p = video.play();
+      if (p && p.catch) p.catch(function () { /* autoplay blocked; the watchdog retries */ });
+    }
+    function reload() { try { video.load(); } catch (e) {} play(); }
+    video.addEventListener('pause', function () { if (!document.hidden && !reduce.matches) play(); });
+    video.addEventListener('ended', function () { video.currentTime = 0; play(); });
+    video.addEventListener('stalled', reload);
+    video.addEventListener('error', function () { setTimeout(reload, 1000); });
+    video.addEventListener('abort', reload);
+    document.addEventListener('visibilitychange', function () { if (!document.hidden) play(); });
+    var lastTime = -1, stuck = 0;
+    var watchdog = setInterval(function () {
+      if (!document.body.contains(video)) { clearInterval(watchdog); return; }
+      if (document.hidden || reduce.matches) return;
+      if (video.paused) play();
+      if (video.currentTime === lastTime) { stuck++; if (stuck >= 2) { stuck = 0; reload(); } } else { stuck = 0; }
+      lastTime = video.currentTime;
+    }, 2500);
+    play();
+  }
+
   window.almaMotion = function (root) {
     var heroVideo = root.querySelector("video.hero-video");
-    if (heroVideo && !reduce.matches) { var pr = heroVideo.play(); if (pr && pr.catch) pr.catch(function () {}); }
+    if (heroVideo) keepVideoPlaying(heroVideo);
     if (ctx) { ctx.revert(); ctx = null; }
     initGallery(root);
     if (window.almaUpdatePastHero) window.almaUpdatePastHero();

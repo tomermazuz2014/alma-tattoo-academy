@@ -144,7 +144,7 @@
       '<section class="hero" aria-labelledby="hero-title">' +
         '<figure class="hero-frame">' +
           /* Kling loop: decorative, muted, no controls. */
-        '<video class="hero-video" src="/assets/video/hero-shaked.mp4" poster="/assets/img/hero-shaked-poster.jpg" muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1"></video>' +
+        '<video class="hero-video" src="/assets/video/hero-shaked.mp4" poster="/assets/img/hero-shaked-poster.jpg" autoplay muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1"></video>' +
         '</figure>' +
         '<div class="hero-copy">' +
           '<h1 id="hero-title" class="hero-title" dir="ltr" aria-label="The art of tattooing starts with fundamentals.">' +

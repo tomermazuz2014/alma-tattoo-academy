@@ -1098,3 +1098,35 @@ body:not(.past-hero) .site-header .brand { opacity: 0; transform: translateY(-8p
 .hero-wordmark { color: #C2306A; }
 .hero .btn-link { display: none; }
 .hero-copy { bottom: 30vh; }
+/* The wordmark is anchored to the left edge of the page, not centred. */
+.hero-wordmark { left: var(--gutter) !important; right: auto !important; inset-inline: auto; width: max-content; padding-inline-start: 0; text-align: left; font-size: clamp(6rem, 19vw, 17rem); }
+.hero-copy { bottom: 12vh; }
+
+/* ---------- Palette v3 (client's "Student Work" swatch): pink replaced ----------
+   Electric #1822E6 for the call to action, Spice #FF8400 for the ALMA wordmark, Vivid #E8FF2E for hover. */
+.hero .btn-primary, .btn-primary { background: #1822E6; border-color: #0F1494; box-shadow: 4px 4px 0 #0F1494; }
+.btn-primary:hover { background: #1218B8; box-shadow: 3px 3px 0 #0F1494; }
+.hero .btn-primary { background: #1822E6; color: #FFFFFF; }
+.hero-wordmark { color: #FF8400; }
+.site-nav .nav-link:hover { background: #E8FF2E; color: #1E1519; }
+
+/* ---------- Hero, final: the video alone, with the big ALMA sunk into its middle ----------
+   No buttons over the video. The nav is hidden until the visitor scrolls past the hero. The wordmark
+   sits across the middle of the video on the left, and it is sized so it never runs off the phone screen. */
+.hero .actions { display: none; }
+body:not(.past-hero) .site-nav { opacity: 0; pointer-events: none; }
+.site-nav { transition: opacity 420ms var(--ease-out); }
+.hero-wordmark { top: 34%; bottom: auto; left: var(--gutter) !important; font-size: clamp(4.2rem, 17vw, 14rem); }
+@media (max-width: 899px) {
+  .hero-wordmark { top: 40%; font-size: clamp(3.6rem, 21vw, 9rem); }
+}
+
+/* ALMA as a tall, heavy, condensed "squeeze" wordmark (Anton), sized by height on desktop and width on phones. */
+.hero-wordmark {
+  font-family: "Anton", "Archivo Black", Impact, sans-serif; font-weight: 400;
+  font-size: min(36vh, 26vw); line-height: 0.9; letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+@media (max-width: 899px) {
+  .hero-wordmark { font-size: 42vw; top: 36%; }
+}
