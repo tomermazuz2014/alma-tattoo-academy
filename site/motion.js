@@ -73,16 +73,12 @@
   function addMarquee(root, gsap, ScrollTrigger) {
     var track = root.querySelector('.marquee-track');
     if (!track) return;
-    // Endless loop, transform only. It speeds up with scroll velocity and pauses off screen.
-    var loop = gsap.to(track, { xPercent: -50, duration: 46, ease: 'none', repeat: -1 });
-    ScrollTrigger.create({
-      trigger: track.parentNode, start: 'top bottom', end: 'bottom top',
-      onToggle: function (self) { self.isActive ? loop.play() : loop.pause(); }
-    });
+    // Endless loop, transform only. It keeps running at all times and speeds up only a little with scroll.
+    var loop = gsap.to(track, { xPercent: -50, duration: 72, ease: 'none', repeat: -1 });
     ScrollTrigger.create({
       start: 0, end: 'max',
       onUpdate: function (self) {
-        var boost = Math.min(Math.abs(self.getVelocity()) / 700, 3);
+        var boost = Math.min(Math.abs(self.getVelocity()) / 1200, 0.6);
         gsap.to(loop, { timeScale: 1 + boost, duration: 0.5, overwrite: true });
       }
     });
